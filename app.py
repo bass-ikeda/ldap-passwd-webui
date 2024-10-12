@@ -118,7 +118,7 @@ def change_password_ldap(conf, username, old_pass, new_pass):
 
     # 2. connect with BIND DN
     with connect_ldap(conf, authentication=SIMPLE, user=binddn, password=old_pass) as c:
-    user_dn = find_user_dn(conf, c, username)
+        user_dn = find_user_dn(conf, c, username)
 
     # Note: raises LDAPUserNameIsMandatoryError when user_dn is None.
     with connect_ldap(conf, authentication=SIMPLE, user=user_dn, password=old_pass) as c:
