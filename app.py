@@ -10,6 +10,7 @@ from ldap3.core.exceptions import LDAPBindError, LDAPConstraintViolationResult, 
     LDAPInvalidCredentialsResult, LDAPUserNameIsMandatoryError, \
     LDAPSocketOpenError, LDAPExceptionError
 import logging
+import gettext
 import os
 from os import environ, path
 
@@ -33,10 +34,10 @@ def post_index():
         return index_tpl(username=form('username'), alerts=[('error', msg)])
 
     if form('new-password') != form('confirm-password'):
-        return error("Password doesn't match the confirmation!")
+        return error(_("Password doesn't match the confirmation!"))
 
     if len(form('new-password')) < 8:
-        return error("Password must be at least 8 characters long!")
+        return error(_("Password must be at least 8 characters long!"))
 
     try:
         change_passwords(form('username'), form('old-password'), form('new-password'))
@@ -46,7 +47,7 @@ def post_index():
 
     LOG.info("Password successfully changed for: %s" % form('username'))
 
-    return index_tpl(alerts=[('success', "Password has been changed")])
+    return index_tpl(alerts=[('success', _("Password has been changed"))])
 
 
 @route('/static/<filename>', name='static')
@@ -95,7 +96,7 @@ def change_password(conf, *args):
             change_password_ldap(conf, *args)
 
     except (LDAPBindError, LDAPInvalidCredentialsResult, LDAPUserNameIsMandatoryError):
-        raise Error('Username or password is incorrect!')
+        raise Error(_('Username or password is incorrect!'))
 
     except LDAPConstraintViolationResult as e:
         # Extract useful part of the error message (for Samba 4 / AD).
@@ -104,11 +105,11 @@ def change_password(conf, *args):
 
     except LDAPSocketOpenError as e:
         LOG.error('{}: {!s}'.format(e.__class__.__name__, e))
-        raise Error('Unable to connect to the remote server.')
+        raise Error(_('Unable to connect to the remote server.'))
 
     except LDAPExceptionError as e:
         LOG.error('{}: {!s}'.format(e.__class__.__name__, e))
-        raise Error('Encountered an unexpected error while communicating with the remote server.')
+        raise Error(_('Encountered an unexpected error while communicating with the remote server.'))
 
 
 def change_password_ldap(conf, username, old_pass, new_pass):
@@ -155,6 +156,13 @@ class Error(Exception):
 
 if environ.get('DEBUG'):
     bottle.debug(True)
+
+# Set up i18n with gettext
+localedir = path.join(BASE_DIR, 'locale')
+translate = gettext.translation('app.py', localedir, fallback=True, languages=['ja'])
+_ = _ = translate.gettext
+
+translate.install()
 
 # Set up logging.
 logging.basicConfig(format=LOG_FORMAT)
