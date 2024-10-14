@@ -66,7 +66,7 @@ def lang_decide(request=None, conf=None):
 
     # 4. settings.ini: `default_lang = (Language)` in `[server]` section
     if lang is None:
-        lang = conf['html'].get('default_lang')
+        lang = conf['i18n'].get('default_language')
 
     # 5.　request header: `Accept-Language: fr-FR,fr`
     if lang is None:
