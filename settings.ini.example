@@ -1,6 +1,9 @@
 [html]
 page_title = Change your password on example.org
 
+[i18n]
+#default_language = ja_JP
+
 [ldap:0]
 host = localhost
 port = 636
