@@ -13,6 +13,7 @@ import logging
 import gettext
 import os
 from os import environ, path
+from lib.lpw_i18n import *
 
 
 BASE_DIR = path.dirname(__file__)
@@ -23,15 +24,19 @@ VERSION = '2.1.0'
 
 @get('/')
 def get_index():
-    return index_tpl()
+    lang = lang_decide(request, CONF)
+    i18n_set_lang(lang)
+    return index_tpl(lang=lang)
 
 
 @post('/')
 def post_index():
     form = request.forms.getunicode
+    lang = lang_decide(request, CONF)
+    i18n_set_lang(lang)
 
     def error(msg):
-        return index_tpl(username=form('username'), alerts=[('error', msg)])
+        return index_tpl(username=form('username'), lang=lang, alerts=[('error', msg)])
 
     if form('new-password') != form('confirm-password'):
         return error(_("Password doesn't match the confirmation!"))
@@ -47,7 +52,7 @@ def post_index():
 
     LOG.info("Password successfully changed for: %s" % form('username'))
 
-    return index_tpl(alerts=[('success', _("Password has been changed"))])
+    return index_tpl(lang=lang, alerts=[('success', _("Password has been changed"))])
 
 
 @route('/static/<filename>', name='static')
@@ -149,6 +154,11 @@ def read_config():
 
     return config
 
+def i18n_set_lang(language):
+    translate = gettext.translation('app.py', LOCALE_DIR, fallback=True, languages=[language])
+    _ = translate.gettext
+    translate.install()
+
 
 class Error(Exception):
     pass
@@ -156,13 +166,6 @@ class Error(Exception):
 
 if environ.get('DEBUG'):
     bottle.debug(True)
-
-# Set up i18n with gettext
-localedir = path.join(BASE_DIR, 'locale')
-translate = gettext.translation('app.py', localedir, fallback=True, languages=['ja'])
-_ = _ = translate.gettext
-
-translate.install()
 
 # Set up logging.
 logging.basicConfig(format=LOG_FORMAT)
@@ -172,6 +175,9 @@ LOG.info("Starting ldap-passwd-webui %s" % VERSION)
 CONF = read_config()
 
 bottle.TEMPLATE_PATH = [BASE_DIR]
+
+# Set up i18n with gettext
+LOCALE_DIR = path.join(BASE_DIR, 'locale')
 
 # Set default attributes to pass into templates.
 SimpleTemplate.defaults = dict(CONF['html'])
