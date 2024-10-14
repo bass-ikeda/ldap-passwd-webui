@@ -15,7 +15,6 @@ import os
 from os import environ, path
 from lib.lpw_i18n import *
 
-
 BASE_DIR = path.dirname(__file__)
 LOG = logging.getLogger(__name__)
 LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
@@ -60,8 +59,18 @@ def serve_static(filename):
     return static_file(filename, root=path.join(BASE_DIR, 'static'))
 
 
-def index_tpl(**kwargs):
-    return template('index', **kwargs)
+def index_tpl(lang=None, **kwargs):
+    tpl_name = 'index'
+
+    tpl_path = tpl_name
+    locale_lang = languages_list(localedir=LOCALE_DIR, languages=[lang],
+                                 get_path=True, get_abspath=False)
+    if len(locale_lang) > 0:
+        tpl_path = path.join(locale_lang[0], tpl_name)
+
+    if not path.isfile(tpl_path + '.tpl'):
+        tpl_path = tpl_name
+    return template(tpl_path, lang=lang, **kwargs)
 
 
 def connect_ldap(conf, **kwargs):
@@ -154,6 +163,7 @@ def read_config():
 
     return config
 
+
 def i18n_set_lang(language):
     translate = gettext.translation('app.py', LOCALE_DIR, fallback=True, languages=[language])
     _ = translate.gettext
@@ -177,7 +187,8 @@ CONF = read_config()
 bottle.TEMPLATE_PATH = [BASE_DIR]
 
 # Set up i18n with gettext
-LOCALE_DIR = path.join(BASE_DIR, 'locale')
+#LOCALE_DIR = path.join(BASE_DIR, 'locale')
+LOCALE_DIR = './locale/'
 
 # Set default attributes to pass into templates.
 SimpleTemplate.defaults = dict(CONF['html'])
