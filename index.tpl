@@ -30,11 +30,8 @@
         <input id="confirm-password" name="confirm-password" type="password"
             pattern=".{8,}" oninvalid="SetCustomValidity('Password must be at least 8 characters long.')" required>
 
-        <label for="lang">lang</label>
-        <input id="lang" name="lang" type="text" value="{{ get('lang', '') }}" readonly />
-<!--
         <input id="lang" name="lang" type="hidden" value="{{ get('lang', '') }}">
--->
+
         <button type="submit">Update password</button>
       </form>
 
