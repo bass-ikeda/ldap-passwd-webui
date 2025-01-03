@@ -1,6 +1,6 @@
-import glob
 import os
 import re
+import glob
 from bottle import request
 from gettext import _expand_lang
 
