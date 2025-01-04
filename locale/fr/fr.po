@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 3.0.0-it\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-13 08:58+0900\n"
+"PO-Revision-Date: 2025-01-05 07:36:+0900\n"
+"Last-Translator: Ikeda Tomoyuki <bass.ikeda@gmail.com>\n"
+"Language-Team: Fr\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: app.py:37
+msgid "Password doesn't match the confirmation!"
+msgstr "Le mot de passe ne correspond pas à la confirmation!"
+
+#: app.py:40
+msgid "Password must be at least 8 characters long!"
+msgstr "Le mot de passe doit comporter au moins 8 caractères!"
+
+#: app.py:50
+msgid "Password has been changed"
+msgstr "Le mot de passe a été modifié"
+
+#: app.py:99
+msgid "Username or password is incorrect!"
+msgstr "Le nom d'utilisateur ou le mot de passe est incorrect!"
+
+#: app.py:108
+msgid "Unable to connect to the remote server."
+msgstr "Impossible de se connecter au serveur distant."
+
+#: app.py:112
+msgid ""
+"Encountered an unexpected error while communicating with the remote server."
+msgstr "Rencontré une erreur inattendue lors de la communication avec le serveur distant."

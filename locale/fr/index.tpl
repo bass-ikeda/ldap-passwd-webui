@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>{{ page_title }}</title>
+
+    <link rel="stylesheet" href="{{ url('static', filename='style.css') }}">
+  </head>
+
+  <body>
+    <main>
+      <h1>Modifier le mot de passe LDAP</h1>
+
+      <form method="post">
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" name="username" value="{{ get('username', '') }}" type="text" required autofocus>
+
+        <label for="old-password">Ancien mot de passe</label>
+        <input id="old-password" name="old-password" type="password" required>
+
+        <label for="new-password">Nouveau mot de passe</label>
+        <input id="new-password" name="new-password" type="password"
+            pattern=".{8,}" oninvalid="SetCustomValidity('Le mot de passe doit avoir au moins 8 caractères.')" required>
+
+        <label for="confirm-password">Confirmer un nouveau mot de passe</label>
+        <input id="confirm-password" name="confirm-password" type="password"
+            pattern=".{8,}" oninvalid="SetCustomValidity('Le mot de passe doit avoir au moins 8 caractères.')" required>
+
+        <input id="lang" name="lang" type="hidden" value="{{ get('lang', '') }}">
+
+        <button type="submit">Mettre à jour le mot de passe</button>
+      </form>
+
+      <div class="alerts">
+        %for type, text in get('alerts', []):
+          <div class="alert {{ type }}">{{ text }}</div>
+        %end
+      </div>
+    </main>
+  </body>
+</html>

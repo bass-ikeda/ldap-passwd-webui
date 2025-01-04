@@ -23,7 +23,7 @@ from subprocess import Popen, PIPE
 import shlex
 
 BASE_DIR = path.dirname(__file__)
-VERSION = '2.1.0'
+VERSION = '3.0.0-it'
 environ['DEBUG'] = ''   # set '1' for DEBUG
 
 
