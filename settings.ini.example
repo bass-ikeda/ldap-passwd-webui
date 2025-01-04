@@ -23,6 +23,10 @@ search_filter = uid={uid}
 #base = ou=People,dc=example,dc=org
 #search_filter = uid={uid}
 
+[hook]
+# program_password_policy = /path/to/program
+# program_password_change = /path/to/program 
+
 [server]
 server = auto
 host = localhost
