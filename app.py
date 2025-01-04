@@ -14,6 +14,7 @@ from ldap3.core.exceptions import   \
     LDAPSocketOpenError,            \
     LDAPExceptionError
 import logging
+import logging.handlers
 import gettext
 import os
 from os import environ, path
@@ -308,8 +309,13 @@ class Error(Exception):
 
 # Set up logging.
 LOG = logging.getLogger(__name__)
-LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-logging.basicConfig(format=LOG_FORMAT)
+
+log_format = '%(asctime)s %(levelname)s: %(message)s'
+logging.basicConfig(format=log_format, encoding='utf-8')
+
+syslog_handler = logging.handlers.SysLogHandler(address = '/dev/log')
+LOG.addHandler(syslog_handler)
+
 LOG.setLevel(logging.INFO)
 
 if environ.get('DEBUG'):
