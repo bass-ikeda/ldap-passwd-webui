@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.0.0-it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-13 08:58+0900\n"
-"PO-Revision-Date: 2024-10-13 09:27+0900\n"
+"POT-Creation-Date: 2025-01-05 11:33+0900\n"
+"PO-Revision-Date: 2025-01-05 11:44+0900\n"
 "Last-Translator: Ikeda Tomoyuki <bass.ikeda@gmail.com>\n"
 "Language-Team: Jp\n"
 "Language: ja_JP\n"
@@ -17,27 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app.py:37
+#: app.py:67
 msgid "Password doesn't match the confirmation!"
 msgstr "パスワード文字列が一致しません"
 
-#: app.py:40
-msgid "Password must be at least 8 characters long!"
-msgstr "パスワードは8文字以上で指定してください"
+#: app.py:70
+msgid "Password must be at least "
+msgstr "新しいパスワードは "
 
-#: app.py:50
+#: app.py:72
+msgid " characters long!"
+msgstr " 文字以上で指定してください"
+
+#: app.py:88
+#, python-format
+msgid "Unsuccessful attempt to change password for %s: %s"
+msgstr "アカウント %s のパスワードを変更できませんでした: %s"
+
+#: app.py:96
 msgid "Password has been changed"
 msgstr "パスワードが変更されました"
 
-#: app.py:99
+#: app.py:168
 msgid "Username or password is incorrect!"
 msgstr "ユーザー名またはパスワードが違います"
 
-#: app.py:108
+#: app.py:177
 msgid "Unable to connect to the remote server."
 msgstr "リモートサーバに接続できません"
 
-#: app.py:112
+#: app.py:182
 msgid ""
 "Encountered an unexpected error while communicating with the remote server."
 msgstr "リモートサーバとの通信中にエラーが発生しました"

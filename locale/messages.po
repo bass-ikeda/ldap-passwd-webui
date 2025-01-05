@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-13 08:58+0900\n"
+"POT-Creation-Date: 2025-01-05 11:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app.py:37
+#: app.py:67
 msgid "Password doesn't match the confirmation!"
 msgstr ""
 
-#: app.py:40
-msgid "Password must be at least 8 characters long!"
+#: app.py:70
+msgid "Password must be at least "
 msgstr ""
 
-#: app.py:50
+#: app.py:72
+msgid " characters long!"
+msgstr ""
+
+#: app.py:88
+#, python-format
+msgid "Unsuccessful attempt to change password for %s: %s"
+msgstr ""
+
+#: app.py:96
 msgid "Password has been changed"
 msgstr ""
 
-#: app.py:99
+#: app.py:168
 msgid "Username or password is incorrect!"
 msgstr ""
 
-#: app.py:108
+#: app.py:177
 msgid "Unable to connect to the remote server."
 msgstr ""
 
-#: app.py:112
+#: app.py:182
 msgid ""
 "Encountered an unexpected error while communicating with the remote server."
 msgstr ""

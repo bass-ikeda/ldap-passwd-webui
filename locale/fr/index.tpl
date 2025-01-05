@@ -22,13 +22,23 @@
         <label for="old-password">Ancien mot de passe</label>
         <input id="old-password" name="old-password" type="password" required>
 
+        <%
+        passwd_length_min = get('passwd_length_min', '8')
+        pattern = ".{%s,}" % passwd_length_min
+        %>
         <label for="new-password">Nouveau mot de passe</label>
         <input id="new-password" name="new-password" type="password"
-            pattern=".{8,}" oninvalid="SetCustomValidity('Le mot de passe doit avoir au moins 8 caractères.')" required>
+            pattern="{{ pattern }}" 
+            oninvalid="setCustomValidity('Le mot de passe doit avoir au moins {{ passwd_length_min }} caractères.')" 
+            oninput="setCustomValidity('')"
+            required>
 
         <label for="confirm-password">Confirmer un nouveau mot de passe</label>
         <input id="confirm-password" name="confirm-password" type="password"
-            pattern=".{8,}" oninvalid="SetCustomValidity('Le mot de passe doit avoir au moins 8 caractères.')" required>
+            pattern="{{ pattern }}" 
+            oninvalid="setCustomValidity('Le mot de passe doit avoir au moins {{ passwd_length_min }} caractères.')" 
+            oninput="setCustomValidity('')"
+            required>
 
         <input id="lang" name="lang" type="hidden" value="{{ get('lang', '') }}">
 
