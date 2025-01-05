@@ -1,8 +1,17 @@
 = Changelog
-:repo-uri: https://github.com/jirutka/ldap-passwd-webui
+:repo-uri: https://github.com/bass-ikeda/ldap-passwd-webui.git
 :issues: {repo-uri}/issues
 :pulls: {repo-uri}/pull
 :tags: {repo-uri}/releases/tag
+
+== link:{tags}/v3.0.0-it[3.0.0-it] (2025-01-05)
+
+* add many features based on jirutka's ldap-passwd-webui, https://github.com/jirutka/ldap-passwd-webui
+* support Non-Anonymous bind
+* i18n - internationalization - with gettext
+* hooks to execute external programs, for passwd-validation and additional processes
+
+Many Thanks to Jirutka for developing and publishing the first ldap-passwd-webui
 
 
 == link:{tags}/v2.1.0[2.1.0] (2019-01-09)
