@@ -19,7 +19,7 @@ msgstr ""
 
 #: app.py:67
 msgid "Password doesn't match the confirmation!"
-msgstr "パスワード文字列が一致しません"
+msgstr "新しいパスワードの文字列が一致しません"
 
 #: app.py:70
 msgid "Password must be at least "
