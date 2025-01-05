@@ -1,14 +1,25 @@
 = Web UI for changing LDAP password
-Jakub Jirutka <https://github.com/jirutka[@jirutka]>
+Ikeda Tomoyuki <https://github.com/bass-ikeda[@bass-ikeda]>
 //custom
 :proj-name: ldap-passwd-webui
-:gh-name: jirutka/{proj-name}
+:gh-name: bass-ikeda/{proj-name}
 :wikip-url: https://en.wikipedia.org/wiki
 :pypi-url: https://pypi.python.org/pypi
 
-The aim of this project is to provide a very simple web form for users to be able to change their password stored in LDAP or Active Directory (Samba 4 AD).
-It’s built with http://bottlepy.org[Bottle], a WSGI micro web-framework for Python.
+I forked Jirutka's ldap-passwd-webui, and add many features:
 
+* support Non-Anonymous bind
+* i18n - internationalization - with gettext
+* hooks to execute external programs, for passwd-validation and additional processes
+* settings for minimal password length
+* ...etc
+
+> The aim of this project is to provide a very simple web form for users to be able to change their password stored in LDAP or Active Directory (Samba 4 AD).
+> It’s built with http://bottlepy.org[Bottle], a WSGI micro web-framework for Python.
+>
+> - jirutka[@jirutka]
+
+Many Thanks to Jirutka for developing and publishing the Original ldap-passwd-webui.
 
 == Installation
 

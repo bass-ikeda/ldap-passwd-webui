@@ -10,6 +10,7 @@
 * support Non-Anonymous bind
 * i18n - internationalization - with gettext
 * hooks to execute external programs, for passwd-validation and additional processes
+* settings for minimal password length
 
 Many Thanks to Jirutka for developing and publishing the first ldap-passwd-webui
 
