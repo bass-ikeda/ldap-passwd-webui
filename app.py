@@ -49,13 +49,6 @@ def post_index():
     form = request.forms.getunicode
     lang = lang_decide(request, CONF)
     i18n_set_lang(lang)
-    try:
-        passwd_length_min = int(CONF['html']['passwd_length_min'])
-    except KeyError:
-        passwd_length_min = 8
-    except ValueError:
-        LOG.error("set passwd_length_min correctly")
-        return error(str(e))
 
     def error(msg):
         messages = []
@@ -66,13 +59,23 @@ def post_index():
     if form('new-password') != form('confirm-password'):
         return error(_("Password doesn't match the confirmation!"))
 
+    try:
+        passwd_length_min = int(CONF['html']['passwd_length_min'])
+    except KeyError:
+        passwd_length_min = 8
+    except ValueError as e:
+        admin_msg = "invalid passwd_length_min, CALL administrator please."
+        LOG.error("%s : %s" % (admin_msg, str(e)))
+        return error(admin_msg)
+
     if len(form('new-password')) < int(passwd_length_min):
         return error(_("Password must be at least ")    \
                      + str(passwd_length_min)           \
                      + _(" characters long!")
         )
 
-    errors = hook_password_validator(
+    # call hook: password_policy
+    errors = hook_password_policy(
         form('username'), form('old-password'),
         form('new-password'), form('confirm-password')
     )
@@ -181,7 +184,8 @@ def change_password(conf, *args):
             'Encountered an unexpected error while communicating with the remote server.'
         ))
 
-    errors = hook_password_changer(*args)
+    # call hook: password_change
+    errors = hook_password_change(*args)
     if len(errors):
         raise Error(_(errors))
 
@@ -249,12 +253,12 @@ def i18n_set_lang(language):
 #--------------------------------------
 # for hooks
 
-def hook_password_validator(username, old_pass, new_pass, confirm_pass):
+def hook_password_policy(username, old_pass, new_pass, confirm_pass):
     cmd = CONF['hook']['program_password_policy']
     return call_hook(cmd, username, old_pass, new_pass, confirm_pass)
 
 
-def hook_password_changer(username, old_pass, new_pass):
+def hook_password_change(username, old_pass, new_pass):
     cmd = CONF['hook']['program_password_change']
     return call_hook(cmd, username, old_pass, new_pass, new_pass)
 
@@ -263,8 +267,9 @@ def call_hook(cmd, username, old_pass, new_pass, confirm_pass):
     # check if `cmd` is executable
     args = shlex.split(cmd)
     if (not os.access(args[0], os.X_OK)):
-        LOG.error(args[0] + " is NOT executable.")
-        return ""
+        admin_msg = args[0] + " is NOT executable, CALL administrator please."
+        LOG.error(admin_msg)
+        return admin_msg
 
     # open pipelines and join the `cmd` to them
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
