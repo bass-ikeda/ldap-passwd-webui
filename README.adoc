@@ -137,6 +137,13 @@ server {
 
 image::doc/screenshot.png[]
 
+Japanese:
+
+image::doc/screenshot-ja_JP.png[]
+
+French:
+
+image::doc/screenshot-fr.png[]
 
 == License
 
