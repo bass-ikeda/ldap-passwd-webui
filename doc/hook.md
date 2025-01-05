@@ -72,7 +72,7 @@ if ($new_pass !~ /[0-9]/)
 }
 
 # check 2: Upper and Lower letters
-if (! ($new_pass =~ /[a-z]/ && $new_pass =~ /[A-Z]/) 
+if (! ($new_pass =~ /[a-z]/ && $new_pass =~ /[A-Z]/) )
 {
     print( STDERR "New-password MUST contain both Upper and Lower alphabets\n" );
 }
@@ -159,7 +159,7 @@ NEW_PASSWORD
 CONFIRM_NEW_PASSWORD
 ````
 
-Hook programs read 4 lines, and do some processes as you like.
+Hook programs read 4 lines from STDIN, and do some processes as you like.
 
 
 ## OUTPUT
