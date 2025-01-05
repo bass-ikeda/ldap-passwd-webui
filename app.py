@@ -49,6 +49,13 @@ def post_index():
     form = request.forms.getunicode
     lang = lang_decide(request, CONF)
     i18n_set_lang(lang)
+    try:
+        passwd_length_min = int(CONF['html']['passwd_length_min'])
+    except KeyError:
+        passwd_length_min = 8
+    except ValueError:
+        LOG.error("set passwd_length_min correctly")
+        return error(str(e))
 
     def error(msg):
         messages = []
@@ -59,8 +66,11 @@ def post_index():
     if form('new-password') != form('confirm-password'):
         return error(_("Password doesn't match the confirmation!"))
 
-    if len(form('new-password')) < 8:
-        return error(_("Password must be at least 8 characters long!"))
+    if len(form('new-password')) < int(passwd_length_min):
+        return error(_("Password must be at least ")    \
+                     + str(passwd_length_min)           \
+                     + _(" characters long!")
+        )
 
     errors = hook_password_validator(
         form('username'), form('old-password'),
@@ -75,8 +85,8 @@ def post_index():
         )
     except Error as e:
         LOG.warning(
-            "Unsuccessful attempt to change password for %s: %s"
-            % (form('username'), str(e))
+            _("Unsuccessful attempt to change password for %s: %s")
+            % (form('username'), e)
         )
         return error(str(e))
 
@@ -103,6 +113,7 @@ def index_tpl(lang=None, **kwargs):
 
     if not path.isfile(tpl_path + '.tpl'):
         tpl_path = tpl_name
+
     return template(tpl_path, lang=lang, **kwargs)
 
 

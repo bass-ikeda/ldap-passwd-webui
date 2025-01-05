@@ -1,5 +1,6 @@
 [html]
 page_title = Change your password on example.org
+#passwd_length_min = 8
 
 [i18n]
 #default_language = ja_JP
